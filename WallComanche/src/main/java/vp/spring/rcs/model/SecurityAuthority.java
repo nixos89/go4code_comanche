@@ -24,7 +24,6 @@ public class SecurityAuthority {
 
 	private String name;
 
-	@JsonIgnore
 	@OneToMany(mappedBy="securityAuthority", cascade = CascadeType.REFRESH)
 	private Set<UserSecurityAuthority> users = new HashSet<UserSecurityAuthority>();
 
