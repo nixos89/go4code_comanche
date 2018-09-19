@@ -56,21 +56,21 @@ public class UserSecurityAuthority {
 		this.securityAuthority = securityAuthority;
 	}
 
-	@Override
-	public int hashCode() {
-		return id.hashCode();
-	}
+//	@Override
+//	public int hashCode() {
+//		return (Long)id.hashCode();
+//	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserSecurityAuthority other = (UserSecurityAuthority) obj;
-		return other.id == id;
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		UserSecurityAuthority other = (UserSecurityAuthority) obj;
+//		return other.id == id;
+//	}
 
 }

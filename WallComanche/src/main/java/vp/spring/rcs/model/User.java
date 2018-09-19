@@ -104,6 +104,16 @@ public class User {
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
 	}
+	
+	
+
+	public Set<UserSecurityAuthority> getUserSecurityAuthorities() {
+		return userSecurityAuthorities;
+	}
+
+	public void setUserSecurityAuthorities(Set<UserSecurityAuthority> userSecurityAuthorities) {
+		this.userSecurityAuthorities = userSecurityAuthorities;
+	}
 
 	@Override
 	public int hashCode() {
