@@ -17,10 +17,95 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/add-post/add-post.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/add-post/add-post.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\"> Kreiraj post</h1>\n      </div>\n  </div>\n</div>\n\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [(ngModel)]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">\n        <table class=\"table table-striped\">\n            <thead>\n              <tr>\n                <th></th>\n                <th></th>\n              </tr>\n            </thead>\n            <tbody>\n                <tr>\n                  <td><button class=\"btn btn-success\" (click)=\"save()\" >Sacuvaj</button></td>\n                  <td><button class=\"btn btn-danger\" (click)=\"goBackPost()\" >Odustani</button></td>\n                </tr>\n              </tbody>\n          </table>\n          <div>\n      </div>\n    </div>\n    </div>\n  \n"
+
+/***/ }),
+
+/***/ "./src/app/add-post/add-post.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var AddPostComponent = /** @class */ (function () {
+    function AddPostComponent(postsService, router) {
+        this.postsService = postsService;
+        this.router = router;
+        this.post = {
+            datum: "",
+            user: {
+                id: 1,
+                firstName: "stefan",
+                email: "stefanbokic@gmail.com",
+                lastName: "ssss",
+                password: "wdasvqwfesd",
+                posts: [],
+                securityAuthority: {
+                    name: ""
+                },
+                username: ""
+            },
+            time: "",
+            text: "",
+            viewNumber: 0,
+            comment: [],
+            attachments: [],
+            rating: 0
+        };
+    }
+    AddPostComponent.prototype.ngOnInit = function () {
+    };
+    AddPostComponent.prototype.save = function () {
+        var _this = this;
+        this.postsService.addPost(this.post).subscribe(function (s) {
+            _this.post = s;
+            _this.router.navigate(['posts']);
+        }, function (err) { return console.log("err"); });
+    };
+    AddPostComponent.prototype.goBackPost = function () {
+        this.router.navigate(['posts']);
+    };
+    AddPostComponent = __decorate([
+        core_1.Component({
+            selector: 'app-add-post',
+            template: __webpack_require__("./src/app/add-post/add-post.component.html"),
+            styles: [__webpack_require__("./src/app/add-post/add-post.component.css")]
+        }),
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.Router])
+    ], AddPostComponent);
+    return AddPostComponent;
+}());
+exports.AddPostComponent = AddPostComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-inverse\">\n\t<div class=\"container\">\n\t  <div class=\"navbar-header\">\n\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n\t\t  <span class=\"sr-only\">Home</span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t</button>\n\t\t<a class=\"navbar-brand\" href=\"subjects\">Project name</a>\n\t  </div>\n\t  <div class=\"navbar-collapse collapse\">\n\t\t<ul class=\"nav navbar-nav\">\n\t\t  <li class=\"active\"><a href=\"subjects\">Predmeti</a></li>\n\t\t  <li><a href=\"subjects/add\">Dodaj predmet</a></li>\n\t\t  <li><a href=\"exams\">Ispiti</a></li>\n\t\t  <li><a href=\"exams/add\">Dodaj ispit</a></li>\n\t\t  <li><a href=\"students\">Studenti</a></li>\n\t\t  <li><a href=\"students/add\">Dodaj studenta</a></li>\n\t\t</ul>\n\t  </div>\n\t</div>\n  </nav>\n\n\t<router-outlet></router-outlet>"
+module.exports = "\n<nav class=\"navbar navbar-inverse\">\n\t<div class=\"container\">\n\t  <div class=\"navbar-header\">\n\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n\t\t  <span class=\"sr-only\">Home</span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t</button>\n\t\t<a class=\"navbar-brand\" href=\"\">Project name</a>\n\t  </div>\n\t  <div class=\"navbar-collapse collapse\">\n\t\t<ul class=\"nav navbar-nav\">\n\t\t  <li ><a href=\"post/add/post\">Dodaj post</a></li>\n\t\t</ul>\n\t  </div>\n\t</div>\n  </nav>\n\n\t<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -84,6 +169,8 @@ var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service
 var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
 var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
 var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
 var appRoutes = [
     /*{ path: 'record/:id', component: RecordDetailsComponent },
     { path: 'main', component: MainComponent },
@@ -91,6 +178,7 @@ var appRoutes = [
     { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
     { path: 'post/:id', component: one_post_component_1.OnePostComponent },
     { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
     { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
 ];
 var AppModule = /** @class */ (function () {
@@ -104,6 +192,7 @@ var AppModule = /** @class */ (function () {
                 list_of_posts_component_1.ListOfPostsComponent,
                 one_post_component_1.OnePostComponent,
                 update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -116,6 +205,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 posts_service_1.PostsService,
+                comment_service_1.CommentService,
                 {
                     provide: http_3.HTTP_INTERCEPTORS,
                     useClass: h_interceptor_service_1.HInterceptorService,
@@ -128,6 +218,56 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+
+
+/***/ }),
+
+/***/ "./src/app/comment.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var CommentService = /** @class */ (function () {
+    function CommentService(http) {
+        this.http = http;
+    }
+    CommentService.prototype.addComment = function (newComment, id) {
+        return this.http.post("/api/posts/" + id + "/comments", JSON.stringify(newComment));
+    };
+    CommentService.prototype.findOne = function (id) {
+        //'api/subject' + id === `/api/subject/${id}
+        return this.http.get("/api/comments/" + id);
+    };
+    CommentService.prototype.findAll = function () {
+        //'api/subject' + id === `/api/subject/${id}
+        return this.http.get('/api/comments');
+    };
+    CommentService.prototype.deleteComment = function (id, idPost) {
+        console.log(id);
+        return this.http.delete("/api/posts/" + idPost + "/comments/" + id);
+    };
+    CommentService.prototype.updateComment = function (id, post) {
+        return this.http.put("/api/comments/" + id, post);
+    };
+    CommentService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
+    ], CommentService);
+    return CommentService;
+}());
+exports.CommentService = CommentService;
 
 
 /***/ }),
@@ -181,7 +321,7 @@ module.exports = ""
 /***/ "./src/app/list-of-posts/list-of-posts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.date}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
+module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.datum}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -322,7 +462,7 @@ module.exports = ""
 /***/ "./src/app/one-post/one-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\" readonly></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\" readonly></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\">\n\t<script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js\"></script>\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\" readonly></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\" readonly></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">\n        <table class=\"table table-striped\">\n            <thead>\n              <tr>\n                <th></th>\n                <th></th>\n                <th></th>\n              </tr>\n            </thead>\n            <tbody>\n              <input type=\"text\" #tekstic/>\n              <button  class=\"btn btn-success btn-md pull-right\" (click)=\"buttonClick(tekstic.value)\">Comment</button>\n                <tr  *ngFor = \"let tempComment of listOfComments; let i = index\">\n                  <td><input type=\"text\" #tekstic/></td>\n                  <button *ngIf=\"i==listOfComments.length-1\" class=\"btn btn-success btn-md pull-right\" (click)=\"buttonClick(tekstic.value)\">Comment</button>\n                  <td ><button class=\"btn btn-danger\" (click)=\"deleteComment($event)\" >-</button></td>\n                </tr>\n              </tbody>\n          </table>\n          <div>\n      </div>\n    </div>\n    </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  "
 
 /***/ }),
 
@@ -344,11 +484,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
 var OnePostComponent = /** @class */ (function () {
-    function OnePostComponent(postsService, route, router) {
+    function OnePostComponent(postsService, route, router, commentService) {
         this.postsService = postsService;
         this.route = route;
         this.router = router;
+        this.commentService = commentService;
         this.post = {
             datum: "",
             user: {
@@ -374,6 +516,9 @@ var OnePostComponent = /** @class */ (function () {
         this.value3 = "fa fa-star";
         this.value4 = "fa fa-star";
         this.value5 = "fa fa-star";
+        this.myTextarea = "";
+        this.listOfComments = [];
+        // this.listOfComments.push("aaaaaa");
     }
     OnePostComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -417,13 +562,38 @@ var OnePostComponent = /** @class */ (function () {
             _this.router.navigate(['posts']);
         }, function (err) { return console.log("err"); });
     };
+    OnePostComponent.prototype.buttonClick = function (myTextarea) {
+        if (myTextarea != '') {
+            this.listOfComments.push(myTextarea);
+            var newComment = {
+                commentText: myTextarea,
+                user: {
+                    id: 1,
+                    firstName: "aaaa",
+                    email: "email",
+                    lastName: "prezime",
+                    password: "",
+                    posts: [],
+                    securityAuthority: {
+                        name: "sss"
+                    },
+                    username: "usserrr"
+                }
+            };
+            this.commentService.addComment(newComment, this.post.id);
+            myTextarea = "";
+        }
+    };
+    OnePostComponent.prototype.deleteComment = function ($event) {
+        this.listOfComments.splice($event, 1);
+    };
     OnePostComponent = __decorate([
         core_1.Component({
             selector: 'app-one-post',
             template: __webpack_require__("./src/app/one-post/one-post.component.html"),
             styles: [__webpack_require__("./src/app/one-post/one-post.component.css")]
         }),
-        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.ActivatedRoute, router_1.Router])
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.ActivatedRoute, router_1.Router, comment_service_1.CommentService])
     ], OnePostComponent);
     return OnePostComponent;
 }());

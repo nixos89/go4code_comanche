@@ -15,6 +15,8 @@ import { PostsService } from './list-of-posts/posts.service';
 import { OnePostComponent } from './one-post/one-post.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { UpdatePostComponent } from './update-post/update-post.component';
+import { AddPostComponent } from './add-post/add-post.component';
+import { CommentService } from './comment.service';
 
 const appRoutes: Routes = [
   /*{ path: 'record/:id', component: RecordDetailsComponent },
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'posts', component: ListOfPostsComponent },
   { path: 'post/:id', component: OnePostComponent },
   { path: 'post/edit/:id', component: UpdatePostComponent },
+  { path: 'post/add/post', component: AddPostComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -34,6 +37,7 @@ const appRoutes: Routes = [
     ListOfPostsComponent,
     OnePostComponent,
     UpdatePostComponent,
+    AddPostComponent,
 
   ],
   imports: [
@@ -50,6 +54,7 @@ const appRoutes: Routes = [
   ],
   providers: [ //registrujem servise obaveznoo!!!!!!
     PostsService,
+    CommentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HInterceptorService,

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../list-of-posts/posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Post } from '../model/post';
+import { CommentService } from '../comment.service';
+import { Comment } from '../model/comment';
 
 @Component({
   selector: 'app-one-post',
@@ -40,12 +42,16 @@ export class OnePostComponent implements OnInit {
 
   id: number;
 
+  myTextarea: String = "";
+  listOfComments: String[] = [];
+  
+
   private sub: any;
   isDataAvailable: boolean;
 
-  constructor(private postsService : PostsService, private route: ActivatedRoute, private router: Router) 
+  constructor(private postsService : PostsService, private route: ActivatedRoute, private router: Router, private commentService : CommentService) 
   { 
-      
+     // this.listOfComments.push("aaaaaa");
   }
 
   ngOnInit() {
@@ -99,4 +105,35 @@ export class OnePostComponent implements OnInit {
     );    
    }
 
+
+  buttonClick(myTextarea: String){
+      if (myTextarea != '') {
+          this.listOfComments.push(myTextarea);
+          let newComment: Comment= {
+            commentText: myTextarea,
+            user: {
+              id: 1,
+              firstName: "aaaa",
+              email: "email",
+              lastName: "prezime",
+              password: "",
+              posts: [],
+              securityAuthority: {
+                name: "sss"
+              },
+              username: "usserrr"
+            }
+          }
+
+          this.commentService.addComment(newComment, this.post.id )
+          myTextarea = "";
+      }
+  }
+
+  deleteComment($event){
+      this.listOfComments.splice($event, 1);
+  }
+
+
 }
+

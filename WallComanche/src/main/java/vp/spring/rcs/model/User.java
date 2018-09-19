@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -21,6 +22,7 @@ public class User {
 	private Long id;
 
 	private String username;
+	@JsonIgnore
 	private String password;
 	private String firstName;
 	private String lastName;
