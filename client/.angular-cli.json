@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "D:/tiac4code/go4code_2018-master/08/resenjeStudenti/primer1/record-store/server/RecordStore/src/main/webapp",
+      "outDir": "C:/Users/stefan/git/go4code_comanche/WallComanche/src/main/webapp",
       "assets": [
         "assets",
         "favicon.ico"

@@ -1,0 +1,71 @@
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+    color: orange;
+}
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="alert alert-info" style="align-content: center">
+          <h1 style="padding-left:46%">Posts</h1>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th >User</th>
+            <th>Date & Time</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>Stefan</td>
+              <td>12.12.2012 12:12</td>
+              <td><button class="btn btn-success" (click)="savePost()" >Sacuvaj</button></td>
+              <td><button class="btn btn-success" (click)="updatePost()" >Izmeni</button></td>
+              <td><button class="btn btn-danger" (click)="deletePost()" >Obrisi</button></td>
+            </tr>
+          </tbody>
+      </table>
+      <div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-sm-offset-2">
+      <textarea rows="8" cols="120">
+        Post text area. 
+      </textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-sm-offset-2">     
+      <textarea rows="8" cols="120">
+          Post attachment areaaaa. 
+      </textarea>               
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-8 col-sm-offset-2">     
+       <label>Number of views: </label > 15
+        <span style="margin-left: 300px;" >Post rating:</span>
+       <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>               
+      </div>
+    </div>
+  

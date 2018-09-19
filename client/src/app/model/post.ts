@@ -5,6 +5,7 @@ export class Post{
     id?: Number;
     user: User;
     date: String;
+    time: String;
     text: String;
     viewNumber: Number;
     comment: Comment[];
