@@ -1,40 +1,33 @@
 package vp.spring.rcs;
 
-
-import java.util.HashSet;
-import java.util.Set;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-
 import org.springframework.stereotype.Component;
 
-
+import vp.spring.rcs.model.Post;
 import vp.spring.rcs.model.SecurityAuthority;
 import vp.spring.rcs.model.User;
 import vp.spring.rcs.model.UserSecurityAuthority;
-import vp.spring.rcs.service.SecurityAuthorityService;
-import vp.spring.rcs.model.Post;
-import vp.spring.rcs.model.User;
 import vp.spring.rcs.service.PostService;
+import vp.spring.rcs.service.SecurityAuthorityService;
 import vp.spring.rcs.service.UserService;
 
 @Component
 public class TestData {
 
 	@Autowired
+	UserService userService;
 
-	private UserService userService;
+	
 
 	@Autowired
 	private SecurityAuthorityService secAuthService;
