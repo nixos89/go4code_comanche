@@ -21,7 +21,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+<<<<<<< HEAD
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)
+=======
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope = Post.class)
+>>>>>>> branch 'master' of https://github.com/nixos89/go4code_comanche.git
 public class Post {
 
 	@Id
@@ -138,7 +142,7 @@ public class Post {
 		this.time = time;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		return id.hashCode();
 	}
@@ -153,6 +157,6 @@ public class Post {
 			return false;
 		Post other = (Post) obj;
 		return other.id == id;
-	}
+	}*/
 
 }
