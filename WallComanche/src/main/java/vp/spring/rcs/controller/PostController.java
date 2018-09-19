@@ -45,8 +45,8 @@ public class PostController {
 	public ResponseEntity<Post> savePost(@RequestBody Post post) {
 		List<Post> posts = postService.getAllPosts();
 		if (!posts.contains(post)) {
-			postService.save(post);
-			return new ResponseEntity<>(post, HttpStatus.OK);
+			Post retVal = postService.save(post);
+			return new ResponseEntity<>(retVal, HttpStatus.OK);
 		} else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -64,8 +64,8 @@ public class PostController {
 			foundPost.setAttachments(post.getAttachments());
 			foundPost.setComments(post.getComments());
 			foundPost.setViewNumber(post.getViewNumber() + 1);
-			postService.save(foundPost);
-			return new ResponseEntity<>(foundPost, HttpStatus.OK);
+			Post retVal = postService.save(foundPost);
+			return new ResponseEntity<>(retVal, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

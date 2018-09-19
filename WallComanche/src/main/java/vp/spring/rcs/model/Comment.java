@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Comment.class)
 public class Comment {
 
 	@Id
@@ -17,10 +17,10 @@ public class Comment {
 	private Long id;
 
 	private String commentText;
-	
+
 	@ManyToOne()
 	private User user;
-	
+
 	@ManyToOne
 	private Post post;
 
@@ -28,10 +28,11 @@ public class Comment {
 
 	}
 
-	public Comment(String commentText, User user) {
+	public Comment(String commentText, User user, Post post) {
 		super();
 		this.commentText = commentText;
 		this.user = user;
+		this.post = post;
 	}
 
 	public Long getId() {
@@ -56,6 +57,14 @@ public class Comment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 }
