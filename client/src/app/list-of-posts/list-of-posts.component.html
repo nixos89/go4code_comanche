@@ -14,7 +14,7 @@
                 <td>{{post.user.username}}</td>
                 <td>{{post.datum}}</td>
                 <td>{{post.text}}</td>
-                <td><button class="btn btn-success" (click)="viewDetails(post.id)" >Vidi detalje</button></td>
+                <td><button class="btn btn-success" (click)="viewDetails(post.id)" >Details</button></td>
               </tr>
               <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </tbody>

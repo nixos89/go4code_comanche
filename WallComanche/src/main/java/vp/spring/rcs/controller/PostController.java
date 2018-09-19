@@ -1,8 +1,6 @@
 package vp.spring.rcs.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import vp.spring.rcs.model.Comment;
 import vp.spring.rcs.model.Post;
-import vp.spring.rcs.service.CommentService;
 import vp.spring.rcs.service.PostService;
 
 @Controller
@@ -29,9 +25,6 @@ public class PostController {
 
 	@Autowired
 	PostService postService;
-	
-	@Autowired
-	CommentService commentService;
 
 	@GetMapping
 	public ResponseEntity<Page<Post>> getAllPagePosts(Pageable pageable) {
@@ -42,20 +35,10 @@ public class PostController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Post> getPost(@PathVariable Long id) {
 		Post post = postService.getPost(id);
-		List<Comment> commentsList = commentService.getAllCommentsForPostId(id);
-		for(Comment c: commentsList) {
-			System.out.println(c);
-		}
-		if (post != null) {
-			Set<Comment> commentsSet = new HashSet<Comment>();
-			for(Comment c: commentsList) {
-				commentsSet.add(c);
-			}
-			post.setComments(commentsSet);
+		if (post != null)
 			return new ResponseEntity<>(post, HttpStatus.OK);
-		}else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 
 	@PostMapping()

@@ -67,12 +67,13 @@ export class OnePostComponent implements OnInit {
             e => {
               this.post = e;
               this.colorStars();
-              this.commentService.findOneByPostId(this.id).subscribe(
+              this.listOfComments = this.post.comments;
+              //this.commentService.findOneByPostId(this.id).subscribe(
                 //this.listOfComments = this.post.comments;
-                s => {
+               /* s => {
                   this.post.comments = s
-                }
-              )
+                }*/
+             // )
             }
           )
         }
@@ -138,7 +139,7 @@ export class OnePostComponent implements OnInit {
                     this.post = z;
                   }
           )*/
-             this.listOfComments.push(newComment);
+            // this.listOfComments.push(s);
             },
             err=> console.log("err")
           );    

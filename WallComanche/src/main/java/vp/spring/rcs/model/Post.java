@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -41,12 +43,14 @@ public class Post {
 
 	private String text;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)
 	private Set<Attachment> attachments = new HashSet<Attachment>();
 
 	private int viewNumber;
 
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private Set<Comment> comments = new HashSet<Comment>();
 
