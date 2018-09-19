@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
 
 	@Id
@@ -23,12 +25,11 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-
-	@JsonIgnore()
+	
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<Post> posts = new HashSet<Post>();
+	
 
-	@JsonIgnore()
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<UserSecurityAuthority> userSecurityAuthorities = new HashSet<UserSecurityAuthority>();
 
@@ -97,6 +98,16 @@ public class User {
 
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
+	}
+	
+	
+
+	public Set<UserSecurityAuthority> getUserSecurityAuthorities() {
+		return userSecurityAuthorities;
+	}
+
+	public void setUserSecurityAuthorities(Set<UserSecurityAuthority> userSecurityAuthorities) {
+		this.userSecurityAuthorities = userSecurityAuthorities;
 	}
 
 	@Override

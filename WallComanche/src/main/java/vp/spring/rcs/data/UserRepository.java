@@ -7,5 +7,6 @@ import vp.spring.rcs.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	public User findByUsername(String username);
 
 }

@@ -15,9 +15,13 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Post {
 
 	@Id
@@ -35,13 +39,14 @@ public class Post {
 
 	private String text;
 
-	@JsonIgnore()
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)
 	private Set<Attachment> attachments = new HashSet<Attachment>();
 
 	private int viewNumber;
 
-	@JsonIgnore()
+	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private Set<Comment> comments = new HashSet<Comment>();
 
