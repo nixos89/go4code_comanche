@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -26,15 +25,13 @@ public class User {
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private Set<Post> posts = new HashSet<Post>();
 
-	@ManyToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
-	private Set<SecurityAuthority> authorities = new HashSet<SecurityAuthority>();
-	
+	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
+	private Set<UserSecurityAuthority> userSecurityAuthorities = new HashSet<UserSecurityAuthority>();
 
 	public User() {
 	}
 
 	public User(String username, String password, String firstName, String lastName, String email) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -96,14 +93,6 @@ public class User {
 
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
-	}
-
-	public Set<SecurityAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(Set<SecurityAuthority> authorities) {
-		this.authorities = authorities;
 	}
 
 	@Override

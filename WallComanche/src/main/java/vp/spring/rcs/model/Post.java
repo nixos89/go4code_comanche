@@ -1,5 +1,6 @@
 package vp.spring.rcs.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,18 +13,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 public class Post {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private User user;
 
 	@Temporal(TemporalType.DATE)
 	private Date datum;
+
+	private LocalDateTime time;
 
 	private String text;
 
@@ -37,10 +39,11 @@ public class Post {
 
 	private double rating;
 
-	public Post(User user, Date datum, String text, int viewNumber, double rating) {
+	public Post(User user, Date datum, LocalDateTime time, String text, int viewNumber, double rating) {
 		super();
 		this.user = user;
 		this.datum = datum;
+		this.time = time;
 		this.text = text;
 		this.viewNumber = viewNumber;
 		this.rating = rating;
@@ -113,6 +116,14 @@ public class Post {
 		this.rating = rating;
 	}
 
+	public LocalDateTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+
 	@Override
 	public int hashCode() {
 		return id.hashCode();
@@ -126,10 +137,8 @@ public class Post {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;		
+		Post other = (Post) obj;
 		return other.id == id;
 	}
-	
-	
 
 }

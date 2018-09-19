@@ -7,22 +7,21 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SecurityAuthority {
-	
+
 	@Id
 	@GeneratedValue
-	private Long id;	
-	
-	private String name;
-	
-	@ManyToMany(cascade = CascadeType.REFRESH)
-	private Set<User> users = new HashSet<User>();
-	
-	public SecurityAuthority() {
+	private Long id;
 
+	private String name;
+
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	private Set<UserSecurityAuthority> users = new HashSet<UserSecurityAuthority>();
+
+	public SecurityAuthority() {
 	}
 
 	public SecurityAuthority(String name) {
@@ -58,10 +57,8 @@ public class SecurityAuthority {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SecurityAuthority other = (SecurityAuthority) obj;		
+		SecurityAuthority other = (SecurityAuthority) obj;
 		return other.id == id;
 	}
-	
-	
-	
+
 }
