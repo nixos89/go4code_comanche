@@ -90,6 +90,7 @@ var appRoutes = [
     { path: '', redirectTo: 'main', pathMatch: 'full' },*/
     { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
     { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
     { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
 ];
 var AppModule = /** @class */ (function () {
@@ -321,7 +322,7 @@ module.exports = ""
 /***/ "./src/app/one-post/one-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\" readonly></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\" readonly></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -408,7 +409,7 @@ var OnePostComponent = /** @class */ (function () {
         }
     };
     OnePostComponent.prototype.updatePost = function (id) {
-        this.postsService.updatePost(id, this.post);
+        this.router.navigate(['post/edit', id]);
     };
     OnePostComponent.prototype.deletePost = function (id) {
         var _this = this;
@@ -491,7 +492,7 @@ module.exports = ""
 /***/ "./src/app/update-post/update-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"saveAfterChangePost()\" >Sacuvaj</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"goBackPost(post.id)\" >Odustani</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [(ngModel)]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -578,10 +579,14 @@ var UpdatePostComponent = /** @class */ (function () {
         }
     };
     UpdatePostComponent.prototype.saveAfterChangePost = function () {
-        this.postsService.updatePost(this.post.id, this.post);
+        var _this = this;
+        this.postsService.updatePost(this.post.id, this.post).subscribe(function (s) {
+            _this.post = s;
+            _this.router.navigate(['posts']);
+        }, function (err) { return console.log("err"); });
     };
     UpdatePostComponent.prototype.goBackPost = function () {
-        this.router.navigate(['posts/']);
+        this.router.navigate(['post/', this.post.id]);
     };
     UpdatePostComponent = __decorate([
         core_1.Component({

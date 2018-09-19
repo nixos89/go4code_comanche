@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope = Post.class)
 public class Post {
 
 	@Id
@@ -137,7 +137,7 @@ public class Post {
 		this.time = time;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		return id.hashCode();
 	}
@@ -152,6 +152,6 @@ public class Post {
 			return false;
 		Post other = (Post) obj;
 		return other.id == id;
-	}
+	}*/
 
 }
