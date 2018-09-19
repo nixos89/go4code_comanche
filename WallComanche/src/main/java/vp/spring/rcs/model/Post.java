@@ -1,6 +1,5 @@
 package vp.spring.rcs.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
 public class Post {
@@ -27,7 +29,8 @@ public class Post {
 	@Temporal(TemporalType.DATE)
 	private Date datum;
 
-	private LocalDateTime time;
+	@JsonFormat(shape=Shape.STRING, pattern="hh:mm:ss")
+	private Date time;
 
 	private String text;
 
@@ -41,7 +44,7 @@ public class Post {
 
 	private double rating;
 
-	public Post(User user, Date datum, LocalDateTime time, String text, int viewNumber, double rating) {
+	public Post(User user, Date datum, Date time, String text, int viewNumber, double rating) {
 		super();
 		this.user = user;
 		this.datum = datum;
@@ -118,15 +121,13 @@ public class Post {
 		this.rating = rating;
 	}
 
-	public LocalDateTime getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(LocalDateTime time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
