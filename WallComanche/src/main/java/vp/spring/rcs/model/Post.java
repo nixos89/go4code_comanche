@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public class Post {
 
 	@Id
@@ -29,12 +31,12 @@ public class Post {
 
 	private String text;
 
-	@OneToMany(cascade = CascadeType.REFRESH)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)
 	private Set<Attachment> attachments = new HashSet<Attachment>();
 
 	private int viewNumber;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private Set<Comment> comments = new HashSet<Comment>();
 
 	private double rating;
@@ -123,6 +125,8 @@ public class Post {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

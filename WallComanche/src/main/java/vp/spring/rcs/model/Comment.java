@@ -1,9 +1,11 @@
 package vp.spring.rcs.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Comment {
 
 	@Id
@@ -14,6 +16,9 @@ public class Comment {
 	
 	@ManyToOne
 	private User user;
+	
+	@ManyToOne
+	private Post post;
 
 	public Comment() {
 
