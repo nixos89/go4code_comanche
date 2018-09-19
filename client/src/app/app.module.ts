@@ -13,7 +13,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListOfPostsComponent } from './list-of-posts/list-of-posts.component';
 import { PostsService } from './list-of-posts/posts.service';
 import { OnePostComponent } from './one-post/one-post.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { UpdatePostComponent } from './update-post/update-post.component';
 
 const appRoutes: Routes = [
   /*{ path: 'record/:id', component: RecordDetailsComponent },
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     ListOfPostsComponent,
     OnePostComponent,
+    UpdatePostComponent,
 
   ],
   imports: [
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     HttpClientModule,
+    NgxPaginationModule,
 
     RouterModule.forRoot(
       appRoutes,

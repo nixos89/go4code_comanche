@@ -14,7 +14,7 @@ export class ListOfPostsComponent implements OnInit {
 
   post2: Post = {
     id: 5,
-    date: "12.12.2012",
+    datum: "12.12.2012",
     user: {
       firstName: "aaaa",
       email: "email",
@@ -37,7 +37,6 @@ export class ListOfPostsComponent implements OnInit {
 
   constructor(private postsService : PostsService, private router: Router) {
     this.getAll();
-    this.posts.push(this.post2);
   }
 
   ngOnInit() {
@@ -45,7 +44,7 @@ export class ListOfPostsComponent implements OnInit {
 
   getAll(){
     this.postsService.findAll().subscribe(
-      s => this.posts = s
+      s => { this.posts = s['content']; }
     );
 
   }

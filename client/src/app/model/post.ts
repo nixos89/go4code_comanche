@@ -2,9 +2,9 @@ import { User } from "./user";
 import { Attachment } from "./attachment";
 
 export class Post{
-    id?: Number;
+    id?: number;
     user: User;
-    date: String;
+    datum: String;
     time: String;
     text: String;
     viewNumber: Number;

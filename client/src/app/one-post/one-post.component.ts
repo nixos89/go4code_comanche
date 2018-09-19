@@ -11,25 +11,24 @@ import { Post } from '../model/post';
 export class OnePostComponent implements OnInit {
 
   post: Post = {
-    id: 5,
-    date: "12.12.2012",
+    datum: "",
     user: {
-      firstName: "aaaa",
-      email: "email",
-      lastName: "prezime",
+      firstName: "",
+      email: "",
+      lastName: "",
       password: "",
       posts: [],
       securityAuthority: {
-        name: "sss"
+        name: ""
       },
-      username: "usserrr"
+      username: ""
     },
     time: "",
-    text: "komentarr",
-    viewNumber: 5,
+    text: "",
+    viewNumber: 0,
     comment: [],
     attachments: [],
-    rating: 4
+    rating: 0
 
   }
 
@@ -61,12 +60,11 @@ export class OnePostComponent implements OnInit {
           this.postsService.findOne(this.id).subscribe(
             e => {
               this.post = e;
+              this.colorStars();
             }
           )
         }
      }
-
-     this.colorStars();
    });
   }
 
