@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },*/
 
   { path: 'posts', component: ListOfPostsComponent },
-  { path: 'post', component: OnePostComponent },
+  { path: 'post/:id', component: OnePostComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
