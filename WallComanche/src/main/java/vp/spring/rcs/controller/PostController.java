@@ -64,6 +64,7 @@ public class PostController {
 			foundPost.setAttachments(post.getAttachments());
 			foundPost.setComments(post.getComments());
 			foundPost.setViewNumber(post.getViewNumber() + 1);
+			postService.save(foundPost);
 			return new ResponseEntity<>(foundPost, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
