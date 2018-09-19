@@ -9,7 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class SecurityAuthority {
 
 	@Id
@@ -18,6 +23,7 @@ public class SecurityAuthority {
 
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="securityAuthority", cascade = CascadeType.REFRESH)
 	private Set<UserSecurityAuthority> users = new HashSet<UserSecurityAuthority>();
 
