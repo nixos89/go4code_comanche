@@ -43,7 +43,7 @@ export class OnePostComponent implements OnInit {
   id: number;
 
   myTextarea: String = "";
-  listOfComments: String[] = [];
+  listOfComments: Comment[] = [];
   
 
   private sub: any;
@@ -67,6 +67,7 @@ export class OnePostComponent implements OnInit {
             e => {
               this.post = e;
               this.colorStars();
+              this.listOfComments = this.post.comment
             }
           )
         }
@@ -108,7 +109,7 @@ export class OnePostComponent implements OnInit {
 
   buttonClick(myTextarea: String){
       if (myTextarea != '') {
-          this.listOfComments.push(myTextarea);
+          //this.listOfComments.push(myTextarea);
           let newComment: Comment= {
             commentText: myTextarea,
             user: {
@@ -125,7 +126,12 @@ export class OnePostComponent implements OnInit {
             }
           }
 
-          this.commentService.addComment(newComment, this.post.id )
+          this.commentService.addComment(newComment, this.post.id ).subscribe(
+            s => {
+             // this.listOfComments = 
+            },
+            err=> console.log("err")
+          );    
           myTextarea = "";
       }
   }

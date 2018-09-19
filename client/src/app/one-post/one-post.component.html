@@ -64,15 +64,19 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <input type="text" #tekstic/>
-              <button  class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value)">Comment</button>
+            <tbody >
+                <input type="text" #tekstic/>
+                <button  class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value) ">Comment</button>
                 <tr  *ngFor = "let tempComment of listOfComments; let i = index">
                   <td><input type="text" #tekstic/></td>
                   <button *ngIf="i==listOfComments.length-1" class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value)">Comment</button>
                   <td ><button class="btn btn-danger" (click)="deleteComment($event)" >-</button></td>
                 </tr>
               </tbody>
+              <!-- <tbody *ngIf="listOfComments.length == 0">
+                  <input type="text" #tekstic/>
+                  <button  class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value) ">Comment</button>
+              </tbody> -->
           </table>
           <div>
       </div>

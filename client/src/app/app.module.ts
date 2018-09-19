@@ -25,11 +25,8 @@ const appRoutes: Routes = [
 
   { path: 'posts', component: ListOfPostsComponent },
   { path: 'post/:id', component: OnePostComponent },
-<<<<<<< HEAD
   { path: 'post/edit/:id', component: UpdatePostComponent },
   { path: 'post/add/post', component: AddPostComponent },
-=======
->>>>>>> branch 'master' of https://github.com/nixos89/go4code_comanche.git
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Attachment } from "./attachment";
+import { Comment } from "./comment";
 
 export class Post{
     id?: number;
