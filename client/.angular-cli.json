@@ -6,7 +6,11 @@
   "apps": [
     {
       "root": "src",
+<<<<<<< HEAD
       "outDir": "../WallComanche/src/main/webapp",
+=======
+      "outDir": "C:/Users/stefan/git/go4code_comanche/WallComanche/src/main/webapp",
+>>>>>>> branch 'master' of https://github.com/nixos89/go4code_comanche.git
       "assets": [
         "assets",
         "favicon.ico"
