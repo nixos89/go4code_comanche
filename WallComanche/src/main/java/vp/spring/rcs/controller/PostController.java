@@ -42,12 +42,16 @@ public class PostController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Post> getPost(@PathVariable Long id) {
 		Post post = postService.getPost(id);
+		List<Comment> commentsList = commentService.getAllCommentsForPostId(id);
+		for(Comment c: commentsList) {
+			System.out.println(c);
+		}
 		if (post != null) {
-			Set<Comment> setComments = new HashSet<Comment>();
-			for(Comment c: commentService.getAllCommentsForPostId(id)) {
-				setComments.add(c);
+			Set<Comment> commentsSet = new HashSet<Comment>();
+			for(Comment c: commentsList) {
+				commentsSet.add(c);
 			}
-			post.setComments(setComments);
+			post.setComments(commentsSet);
 			return new ResponseEntity<>(post, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

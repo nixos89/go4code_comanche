@@ -68,4 +68,11 @@ public class Comment {
 		this.post = post;
 	}
 
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", commentText=" + commentText + ", user=" + user + ", post=" + post + "]";
+	}
+	
+	
+
 }
