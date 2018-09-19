@@ -23,6 +23,7 @@ const appRoutes: Routes = [
 
   { path: 'posts', component: ListOfPostsComponent },
   { path: 'post/:id', component: OnePostComponent },
+  { path: 'post/edit/:id', component: UpdatePostComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

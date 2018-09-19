@@ -87,7 +87,7 @@ export class OnePostComponent implements OnInit {
   }
 
   updatePost(id: number){
-    this.postsService.updatePost(id, this.post);
+    this.router.navigate(['post/edit', id]);
   }
 
   deletePost(id: number){
