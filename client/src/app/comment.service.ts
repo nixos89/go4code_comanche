@@ -17,6 +17,10 @@ export class CommentService {
     //'api/subject' + id === `/api/subject/${id}
     return this.http.get<Comment>(`/api/comments/${id}`);
   }
+  findOneByPostId(id: number): Observable<Comment[]>{
+    //'api/subject' + id === `/api/subject/${id}
+    return this.http.get<Comment[]>(`/api/posts/${id}/comments`);
+  }
 
   findAll(): Observable<Comment[]>{
     //'api/subject' + id === `/api/subject/${id}

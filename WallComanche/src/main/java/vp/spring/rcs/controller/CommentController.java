@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import vp.spring.rcs.model.Comment;
+import vp.spring.rcs.model.Post;
 import vp.spring.rcs.service.CommentService;
+import vp.spring.rcs.service.PostService;
 
 @Controller
 public class CommentController {
 
+	@Autowired
+	PostService postService;
+	
 	@Autowired
 	CommentService commentService;
 
@@ -43,8 +48,11 @@ public class CommentController {
 
 	@PostMapping(value = "/api/posts/{postId}/comments")
 	public ResponseEntity<Comment> saveComment(@PathVariable Long postId, @RequestBody Comment comment) {
+		
 		List<Comment> comments = commentService.getAllCommentsForPostId(postId);
-		if (!comments.contains(comment)) {
+		Post forPost = postService.getPost(postId);
+		if (!comments.contains(comment) && forPost!=null) {			
+			comment.setPost(forPost);
 			Comment retVal = commentService.save(comment);
 			return new ResponseEntity<>(retVal, HttpStatus.OK);
 		} else

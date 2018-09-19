@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -41,13 +42,12 @@ public class Post {
 
 	private String text;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)
 	private Set<Attachment> attachments = new HashSet<Attachment>();
 
 	private int viewNumber;
 
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private Set<Comment> comments = new HashSet<Comment>();
 

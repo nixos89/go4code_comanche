@@ -9,7 +9,7 @@ export class Post{
     time: String;
     text: String;
     viewNumber: Number;
-    comment?: Comment[];
+    comments?: Comment[];
     attachments?: Attachment[];
     rating: Number;
 }

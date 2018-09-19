@@ -28,7 +28,7 @@ export class OnePostComponent implements OnInit {
     time: "",
     text: "",
     viewNumber: 0,
-    comment: [],
+    comments: [],
     attachments: [],
     rating: 0
 
@@ -67,7 +67,12 @@ export class OnePostComponent implements OnInit {
             e => {
               this.post = e;
               this.colorStars();
-              this.listOfComments = this.post.comment
+              this.commentService.findOneByPostId(this.id).subscribe(
+                //this.listOfComments = this.post.comments;
+                s => {
+                  this.post.comments = s
+                }
+              )
             }
           )
         }
@@ -94,7 +99,7 @@ export class OnePostComponent implements OnInit {
   }
 
   updatePost(id: number){
-    this.postsService.updatePost(id, this.post);
+    this.router.navigate(['post/edit', id]);
   }
 
   deletePost(id: number){
@@ -128,7 +133,12 @@ export class OnePostComponent implements OnInit {
 
           this.commentService.addComment(newComment, this.post.id ).subscribe(
             s => {
-             // this.listOfComments = 
+               /* this.postsService.findOne(this.post.id).subscribe(
+                  z => {
+                    this.post = z;
+                  }
+          )*/
+             this.listOfComments.push(newComment);
             },
             err=> console.log("err")
           );    

@@ -27,7 +27,7 @@ export class AddPostComponent implements OnInit {
     time: "",
     text: "",
     viewNumber: 0,
-    comment: [],
+    comments: [],
     attachments: [],
     rating: 0
 

@@ -11,7 +11,7 @@
           </thead>
           <tbody>
               <tr *ngFor = "let post of posts | paginate: { itemsPerPage: 5, currentPage: p }">
-                <td>{{post.user.firstName}}</td>
+                <td>{{post.user.username}}</td>
                 <td>{{post.datum}}</td>
                 <td>{{post.text}}</td>
                 <td><button class="btn btn-success" (click)="viewDetails(post.id)" >Vidi detalje</button></td>

@@ -70,7 +70,7 @@ var AddPostComponent = /** @class */ (function () {
             time: "",
             text: "",
             viewNumber: 0,
-            comment: [],
+            comments: [],
             attachments: [],
             rating: 0
         };
@@ -250,6 +250,10 @@ var CommentService = /** @class */ (function () {
         //'api/subject' + id === `/api/subject/${id}
         return this.http.get("/api/comments/" + id);
     };
+    CommentService.prototype.findOneByPostId = function (id) {
+        //'api/subject' + id === `/api/subject/${id}
+        return this.http.get("/api/posts/" + id + "/comments");
+    };
     CommentService.prototype.findAll = function () {
         //'api/subject' + id === `/api/subject/${id}
         return this.http.get('/api/comments');
@@ -321,7 +325,7 @@ module.exports = ""
 /***/ "./src/app/list-of-posts/list-of-posts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.datum}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
+module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.username}}</td>\n                <td>{{post.datum}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -365,7 +369,7 @@ var ListOfPostsComponent = /** @class */ (function () {
             time: "",
             text: "komentarr",
             viewNumber: 5,
-            comment: [],
+            comments: [],
             attachments: [],
             rating: 4
         };
@@ -507,7 +511,7 @@ var OnePostComponent = /** @class */ (function () {
             time: "",
             text: "",
             viewNumber: 0,
-            comment: [],
+            comments: [],
             attachments: [],
             rating: 0
         };
@@ -531,7 +535,11 @@ var OnePostComponent = /** @class */ (function () {
                     _this.postsService.findOne(_this.id).subscribe(function (e) {
                         _this.post = e;
                         _this.colorStars();
-                        _this.listOfComments = _this.post.comment;
+                        _this.commentService.findOneByPostId(_this.id).subscribe(
+                        //this.listOfComments = this.post.comments;
+                        function (s) {
+                            _this.post.comments = s;
+                        });
                     });
                 }
             }
@@ -555,7 +563,7 @@ var OnePostComponent = /** @class */ (function () {
         }
     };
     OnePostComponent.prototype.updatePost = function (id) {
-        this.postsService.updatePost(id, this.post);
+        this.router.navigate(['post/edit', id]);
     };
     OnePostComponent.prototype.deletePost = function (id) {
         var _this = this;
@@ -564,9 +572,10 @@ var OnePostComponent = /** @class */ (function () {
         }, function (err) { return console.log("err"); });
     };
     OnePostComponent.prototype.buttonClick = function (myTextarea) {
+        var _this = this;
         if (myTextarea != '') {
             //this.listOfComments.push(myTextarea);
-            var newComment = {
+            var newComment_1 = {
                 commentText: myTextarea,
                 user: {
                     id: 1,
@@ -581,8 +590,13 @@ var OnePostComponent = /** @class */ (function () {
                     username: "usserrr"
                 }
             };
-            this.commentService.addComment(newComment, this.post.id).subscribe(function (s) {
-                // this.listOfComments = 
+            this.commentService.addComment(newComment_1, this.post.id).subscribe(function (s) {
+                /* this.postsService.findOne(this.post.id).subscribe(
+                   z => {
+                     this.post = z;
+                   }
+           )*/
+                _this.listOfComments.push(newComment_1);
             }, function (err) { return console.log("err"); });
             myTextarea = "";
         }
@@ -665,7 +679,7 @@ module.exports = ""
 /***/ "./src/app/update-post/update-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"saveAfterChangePost()\" >Sacuvaj</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"goBackPost(post.id)\" >Odustani</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [(ngModel)]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -708,7 +722,7 @@ var UpdatePostComponent = /** @class */ (function () {
             time: "",
             text: "",
             viewNumber: 0,
-            comment: [],
+            comments: [],
             attachments: [],
             rating: 0
         };
@@ -752,10 +766,14 @@ var UpdatePostComponent = /** @class */ (function () {
         }
     };
     UpdatePostComponent.prototype.saveAfterChangePost = function () {
-        this.postsService.updatePost(this.post.id, this.post);
+        var _this = this;
+        this.postsService.updatePost(this.post.id, this.post).subscribe(function (s) {
+            _this.post = s;
+            _this.router.navigate(['posts']);
+        }, function (err) { return console.log("err"); });
     };
     UpdatePostComponent.prototype.goBackPost = function () {
-        this.router.navigate(['posts/']);
+        this.router.navigate(['post/', this.post.id]);
     };
     UpdatePostComponent = __decorate([
         core_1.Component({
