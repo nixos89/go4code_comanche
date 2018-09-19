@@ -29,8 +29,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },*/
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
-  { path: 'posts', component: ListOfPostsComponent, canActivate: [CanActivateAuthGuardService] },
-  { path: 'post/:id', component: OnePostComponent, canActivate: [CanActivateAuthGuardService] },
+  { path: 'posts', component: ListOfPostsComponent /*  , canActivate: [CanActivateAuthGuardService] */},
+  { path: 'post/:id', component: OnePostComponent /* , canActivate: [CanActivateAuthGuardService] */},
   { path: '**', component: PageNotFoundComponent }
 ];
 

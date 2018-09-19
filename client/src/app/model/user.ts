@@ -13,3 +13,10 @@ export class User {
     posts: Post[];
     securityAuthority: SecurityAuthority;
 }
+
+
+export class UserLogin {
+    username: String;
+    password: String;
+
+}

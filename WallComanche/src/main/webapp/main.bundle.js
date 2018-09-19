@@ -106,8 +106,8 @@ var appRoutes = [
     { path: '', redirectTo: 'main', pathMatch: 'full' },*/
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', redirectTo: 'posts', pathMatch: 'full' },
-    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent, canActivate: [can_activate_auth_guard_service_1.CanActivateAuthGuardService] },
-    { path: 'post/:id', component: one_post_component_1.OnePostComponent, canActivate: [can_activate_auth_guard_service_1.CanActivateAuthGuardService] },
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent /*  , canActivate: [CanActivateAuthGuardService] */ },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent /* , canActivate: [CanActivateAuthGuardService] */ },
     { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
 ];
 var AppModule = /** @class */ (function () {
@@ -303,7 +303,7 @@ module.exports = ""
 /***/ "./src/app/login/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"form-signin\" (ngSubmit)=\"login()\">\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\n  <label for=\"username\" class=\"sr-only\">Username</label>\n  <input type=\"text\" id=\"username\" class=\"form-control\" name=\"username\" [(ngModel)]=\"user.username\" placeholder=\"Username\" required autofocus>\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n  <input type=\"password\" id=\"inputPassword\" class=\"form-control\" name=\"username\" [(ngModel)]=\"user.password\" placeholder=\"Password\" required>\n  <button class=\"btn btn-primary btn-block\" type=\"submit\">Sign in</button>\n</form>\n<div *ngIf=wrongUsernameOrPass class=\"alert alert-warning box-msg\" role=\"alert\">\n  Wrong username or password.\n</div>"
+module.exports = "{{user.username}}\n\n\n<form class=\"form-signin\" (ngSubmit)=\"login()\">\n  <h2 class=\"form-signin-heading\">Please sign in</h2>\n  <label for=\"username\" class=\"sr-only\">Username</label>\n  <input type=\"text\" id=\"username\" class=\"form-control\" name=\"username\" [(ngModel)]=\"user.username\" placeholder=\"Username\" required autofocus>\n  <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n  <input type=\"password\" id=\"inputPassword\" class=\"form-control\" name=\"username\" [(ngModel)]=\"user.password\" placeholder=\"Password\" required>\n  <button class=\"btn btn-primary btn-block\" type=\"submit\">Sign in</button>\n</form>\n<div *ngIf=wrongUsernameOrPass class=\"alert alert-warning box-msg\" role=\"alert\">\n  Wrong username or password.\n</div>"
 
 /***/ }),
 
@@ -323,33 +323,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-// import { AuthenticationService } from '../security/authentication.service'
-var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
 var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var authentication_service_1 = __webpack_require__("./src/app/security/authentication.service.ts");
+__webpack_require__("./node_modules/rxjs/_esm5/add/observable/throw.js");
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(authenticationService, router) {
         this.authenticationService = authenticationService;
         this.router = router;
-        this.user = {};
+        this.user = { username: 'String', password: '' };
         this.wrongUsernameOrPass = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        // this.user = new User(username: '',password: '' , firstname: '', lastname: '')
     };
+    // login(): void {
+    //   this.authenticationService.login(this.user.username, this.user.password).subscribe(
+    //     (loggedIn: boolean) => {
+    //       if (loggedIn) {
+    //         this.router.navigate(['posts']);
+    //       }
+    //     }
+    //   ,
+    //   (err: Error) => {
+    //     if ( err.toString() === 'Ilegal login') {
+    //       this.wrongUsernameOrPass = true;
+    //       console.log(err);
+    //     } else {
+    //       Observable.throw(err);
+    //     }
+    //   });
+    // }
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.authenticationService.login(this.user.username, this.user.password).subscribe(function (loggedIn) {
-            if (loggedIn) {
-                _this.router.navigate(['/main']);
-            }
-        }, function (err) {
-            if (err.toString() === 'Ilegal login') {
-                _this.wrongUsernameOrPass = true;
-                console.log(err);
-            }
-            else {
-                Observable_1.Observable.throw(err);
-            }
+        this.wrongUsernameOrPass = true;
+        this.authenticationService.login(this.user.username, this.user.password)
+            .subscribe(function (data) {
+            _this.router.navigate(['posts']);
+        }, function (error) {
+            _this.router.navigate(['login']);
+            alert('Failed to login');
+            // this.alertService.error(error);
+            // this.loading = false;
         });
     };
     LoginComponent = __decorate([
@@ -556,7 +570,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var jwt_utils_service_1 = __webpack_require__("./src/app/security/jwt-utils.service.ts");
-var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
 var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
 __webpack_require__("./node_modules/rxjs/_esm5/add/operator/catch.js");
@@ -566,33 +579,49 @@ var AuthenticationService = /** @class */ (function () {
         this.jwtUtilsService = jwtUtilsService;
         this.loginPath = '/api/login';
     }
+    // login(username: String, password: String): Observable<boolean> {
+    //     // const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    //     return this.http.post(this.loginPath, JSON.stringify({ username, password }), /*{ headers }*/)
+    //       .map((res: any) => {
+    //         const token = res && res['token'];
+    //         if (token) {
+    //           localStorage.setItem('currentUser', JSON.stringify({
+    //                                     username: username,
+    //                                     roles: this.jwtUtilsService.getRoles(token),
+    //                                     token: token
+    //                                   }));
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       })
+    //       .catch((error: any) => {
+    //         if (error.status === 400) {
+    //           return Observable.throw('Ilegal login');
+    //         } else {
+    //           return Observable.throw(error.json().error || 'Server error');
+    //         }
+    //       });
+    //   }
     AuthenticationService.prototype.login = function (username, password) {
-        var _this = this;
         var headers = new http_2.HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.post(this.loginPath, JSON.stringify({ username: username, password: password }), { headers: headers })
-            .map(function (res) {
-            var token = res && res['token'];
-            if (token) {
-                localStorage.setItem('currentUser', JSON.stringify({
-                    username: username,
-                    roles: _this.jwtUtilsService.getRoles(token),
-                    token: token
-                }));
-                return true;
+        return this.http.post('/api/login', JSON.stringify({ username: String, password: String }), { headers: headers })
+            .map(function (user) {
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
             }
-            else {
-                return false;
-            }
-        })
-            .catch(function (error) {
-            if (error.status === 400) {
-                return Observable_1.Observable.throw('Ilegal login');
-            }
-            else {
-                return Observable_1.Observable.throw(error.json().error || 'Server error');
-            }
+            return user;
         });
     };
+    // login(username: string, password: string): Promise<any> {
+    //   return this.http
+    //     .post('/api/login', {username, password}, {responseType: 'text'})
+    //     .toPromise()
+    //     .then(res => localStorage.setItem('token', res))
+    //     .catch(this.handleError);
+    //   }
     AuthenticationService.prototype.getToken = function () {
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         var token = currentUser && currentUser.token;
@@ -602,7 +631,7 @@ var AuthenticationService = /** @class */ (function () {
         localStorage.removeItem('currentUser');
     };
     AuthenticationService.prototype.isLoggedIn = function () {
-        if (this.getToken() !== '') {
+        if (this.getToken() != '') {
             return true;
         }
         else {
@@ -616,6 +645,10 @@ var AuthenticationService = /** @class */ (function () {
         else {
             return undefined;
         }
+    };
+    AuthenticationService.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     };
     AuthenticationService = __decorate([
         core_1.Injectable(),
