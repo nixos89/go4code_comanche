@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "../WallComanche/src/main/webapp",
+      "outDir": "C:/Users/Yura/git/go4code_comanche/WallComanche/src/main/webapp",
       "assets": [
         "assets",
         "favicon.ico"

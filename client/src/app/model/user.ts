@@ -1,7 +1,9 @@
-import { Post } from "./post";
-import { SecurityAuthority } from "./securityAuthority";
+import { SecurityAuthority } from './securityAuthority';
+import { Post } from './post';
 
-export class User{
+
+
+export class User {
     id?: Number;
     username: String;
     password: String;
@@ -9,5 +11,5 @@ export class User{
     lastName: String;
     email: String;
     posts: Post[];
-    securityAuthority: SecurityAuthority;   
+    securityAuthority: SecurityAuthority;
 }
