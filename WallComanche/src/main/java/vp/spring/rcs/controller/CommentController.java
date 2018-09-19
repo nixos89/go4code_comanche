@@ -22,7 +22,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
-	@GetMapping(value = "/api/{postId}/comments")
+	@GetMapping(value = "/api/posts/{postId}/comments")
 	public ResponseEntity<List<Comment>> getAllCommentsForPostId(@PathVariable Long postId) {
 		List<Comment> comments = commentService.getAllCommentsForPostId(postId);
 		if (comments.isEmpty()) {
@@ -32,7 +32,7 @@ public class CommentController {
 		}
 	}
 
-	@GetMapping(value = "/api/{postId}/comments/{commentId}")
+	@GetMapping(value = "/api/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<Comment> getComment(@PathVariable Long postId, @PathVariable Long commentId) {
 		Comment comment = commentService.getCommentForPostIdAndCommentId(postId, commentId);
 		if (comment != null)
@@ -41,7 +41,7 @@ public class CommentController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	@PostMapping(value = "/api/{postId}/comments")
+	@PostMapping(value = "/api/posts/{postId}/comments")
 	public ResponseEntity<Comment> saveComment(@PathVariable Long postId, @RequestBody Comment comment) {
 		List<Comment> comments = commentService.getAllCommentsForPostId(postId);
 		if (!comments.contains(comment)) {
@@ -51,7 +51,7 @@ public class CommentController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	@PutMapping(value = "/api/{postId}/comments/{commentId}")
+	@PutMapping(value = "/api/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<Comment> updateComment(@PathVariable Long postId, @PathVariable Long commentId, @RequestBody Comment comment) {
 		Comment foundComment = commentService.getCommentForPostIdAndCommentId(postId, commentId);
 		if (foundComment != null) {
@@ -66,7 +66,7 @@ public class CommentController {
 		}
 	}
 
-	@DeleteMapping(value = "/api/{postId}/comments/{commentId}")
+	@DeleteMapping(value = "/api/posts/{postId}/comments/{commentId}")
 	public ResponseEntity<Boolean> deleteComment(@PathVariable Long postId, @PathVariable Long commentId) {
 		Comment foundComment = commentService.getCommentForPostIdAndCommentId(postId, commentId);
 		boolean isDeleted = false;
