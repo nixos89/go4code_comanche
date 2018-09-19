@@ -1,26 +1,39 @@
 package vp.spring.rcs;
 
+
 import java.util.HashSet;
 import java.util.Set;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 import org.springframework.stereotype.Component;
+
 
 import vp.spring.rcs.model.SecurityAuthority;
 import vp.spring.rcs.model.User;
 import vp.spring.rcs.model.UserSecurityAuthority;
 import vp.spring.rcs.service.SecurityAuthorityService;
+import vp.spring.rcs.model.Post;
+import vp.spring.rcs.model.User;
+import vp.spring.rcs.service.PostService;
 import vp.spring.rcs.service.UserService;
 
 @Component
 public class TestData {
 
 	@Autowired
+
 	private UserService userService;
 
 	@Autowired
@@ -30,10 +43,16 @@ public class TestData {
 	PasswordEncoder getEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
+	
+
 
 	/*
 	 * Inicijalizacija testnih podataka.
 	 */
+	@Autowired
+	PostService postService;
+
+	// Inicijalizacija testnih podataka.
 	@PostConstruct
 	public void init() {
 		
@@ -62,6 +81,39 @@ public class TestData {
 		User user3 = userService.save(foo);
 		roles3.add(new UserSecurityAuthority(user3, role2));
 
+
+		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		// String cur_date = sdf.format(new Date());
+
+		// DateFormat formatter1 = new SimpleDateFormat("2018/09/05");
+		// Date dateFormat =
+		// DateTimeFormatter formatter = new DateTimeFormatterBuilder();
+		// LocalDate localDate = new LocalDateParser(formatter);
+		Date dateTime1 = null;
+		Date dateTime2 = null;
+		try {
+			String str1 = "2018-05-12 11:03:15";
+			String str2 = "2018-04-15 23:05:23";
+			// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
+			// HH:mm:ss");
+			// LocalDate dateTime1 = LocalDate.parse(str1, formatter);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			dateTime1 = (Date) sdf.parse(str1);
+			dateTime2 = (Date) sdf.parse(str2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Post post1 = new Post(user1, new Date(), dateTime1, "Ovo je neki tekst", 5, 4.5);
+		postService.save(post1);
+
+	
+
+		Post post2 = new Post(user2, new Date(), dateTime2, "Ovo je neki novi tekst", 2, 3.5);
+		postService.save(post2);
+
+		
 	}
 
 }

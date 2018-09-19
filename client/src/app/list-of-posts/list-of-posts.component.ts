@@ -12,8 +12,32 @@ export class ListOfPostsComponent implements OnInit {
 
   posts: Post[] = [];
 
+  post2: Post = {
+    id: 5,
+    date: "12.12.2012",
+    user: {
+      firstName: "aaaa",
+      email: "email",
+      lastName: "prezime",
+      password: "",
+      posts: [],
+      securityAuthority: {
+        name: "sss"
+      },
+      username: "usserrr"
+    },
+    time: "",
+    text: "komentarr",
+    viewNumber: 5,
+    comment: [],
+    attachments: [],
+    rating: 4
+
+  }
+
   constructor(private postsService : PostsService, private router: Router) {
     this.getAll();
+    this.posts.push(this.post2);
   }
 
   ngOnInit() {
@@ -35,6 +59,10 @@ export class ListOfPostsComponent implements OnInit {
 
   updatePost(id: number){
    this.router.navigate(['posts/edit', id]);
+  }
+
+  viewDetails(id: number){
+    this.router.navigate(['post/', id]);
   }
 
 }
