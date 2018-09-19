@@ -22,10 +22,10 @@ public class User {
 	private String lastName;
 	private String email;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<Post> posts = new HashSet<Post>();
 
-	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<UserSecurityAuthority> userSecurityAuthorities = new HashSet<UserSecurityAuthority>();
 
 	public User() {

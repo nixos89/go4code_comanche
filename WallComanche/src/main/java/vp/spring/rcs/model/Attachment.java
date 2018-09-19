@@ -3,6 +3,7 @@ package vp.spring.rcs.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Attachment {
@@ -13,6 +14,9 @@ public class Attachment {
 
 	private String type;
 	private String content;
+	
+	@ManyToOne
+	private Post post;
 
 	public Attachment() {
 
