@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -37,6 +38,7 @@ public class Post {
 	private Date time;
 
 	private String text;
+
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)

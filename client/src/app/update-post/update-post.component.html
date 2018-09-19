@@ -1,0 +1,66 @@
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+    color: orange;
+}
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="alert alert-info" style="align-content: center">
+          <h1 style="padding-left:46%">Posts</h1>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Date & Time</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>{{post.user.firstName}}</td>
+              <td>{{post.datum}}</td>
+              <td><button class="btn btn-success" (click)="updatePost(post.id)" >Izmeni</button></td>
+              <td><button class="btn btn-danger" (click)="deletePost(post.id)" >Obrisi</button></td>
+            </tr>
+          </tbody>
+      </table>
+      <div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-sm-offset-2">
+      <textarea rows="8" cols="120" placeholder="Post text area..."  [ngModel]="post.text"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-sm-offset-2">     
+      <textarea rows="8" cols="120" placeholder="Post attachment areaaaa..."></textarea>               
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-8 col-sm-offset-2">     
+       <label>Number of views: </label > {{post.viewNumber}}
+        <span style="margin-left: 300px;" >Post rating:</span>
+        <span [class]="value1"></span>
+        <span [class]="value2"></span>
+        <span [class]="value3"></span>
+        <span [class]="value4"></span>
+        <span [class]="value5"></span>               
+      </div>
+    </div>
+  

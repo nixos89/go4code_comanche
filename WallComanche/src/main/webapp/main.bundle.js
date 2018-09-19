@@ -82,6 +82,8 @@ var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
 var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
 var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
 var appRoutes = [
     /*{ path: 'record/:id', component: RecordDetailsComponent },
     { path: 'main', component: MainComponent },
@@ -100,12 +102,14 @@ var AppModule = /** @class */ (function () {
                 page_not_found_component_1.PageNotFoundComponent,
                 list_of_posts_component_1.ListOfPostsComponent,
                 one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
                 router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
                 )
             ],
@@ -176,7 +180,7 @@ module.exports = ""
 /***/ "./src/app/list-of-posts/list-of-posts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.date}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
+module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.date}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -205,7 +209,7 @@ var ListOfPostsComponent = /** @class */ (function () {
         this.posts = [];
         this.post2 = {
             id: 5,
-            date: "12.12.2012",
+            datum: "12.12.2012",
             user: {
                 firstName: "aaaa",
                 email: "email",
@@ -225,13 +229,12 @@ var ListOfPostsComponent = /** @class */ (function () {
             rating: 4
         };
         this.getAll();
-        this.posts.push(this.post2);
     }
     ListOfPostsComponent.prototype.ngOnInit = function () {
     };
     ListOfPostsComponent.prototype.getAll = function () {
         var _this = this;
-        this.postsService.findAll().subscribe(function (s) { return _this.posts = s; });
+        this.postsService.findAll().subscribe(function (s) { _this.posts = s['content']; });
     };
     ListOfPostsComponent.prototype.deletePost = function (id) {
         var _this = this;
@@ -318,7 +321,7 @@ module.exports = ""
 /***/ "./src/app/one-post/one-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.date}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -346,25 +349,24 @@ var OnePostComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         this.post = {
-            id: 5,
-            date: "12.12.2012",
+            datum: "",
             user: {
-                firstName: "aaaa",
-                email: "email",
-                lastName: "prezime",
+                firstName: "",
+                email: "",
+                lastName: "",
                 password: "",
                 posts: [],
                 securityAuthority: {
-                    name: "sss"
+                    name: ""
                 },
-                username: "usserrr"
+                username: ""
             },
             time: "",
-            text: "komentarr",
-            viewNumber: 5,
+            text: "",
+            viewNumber: 0,
             comment: [],
             attachments: [],
-            rating: 4
+            rating: 0
         };
         this.value1 = "fa fa-star";
         this.value2 = "fa fa-star";
@@ -382,10 +384,10 @@ var OnePostComponent = /** @class */ (function () {
                 if (_this.id != null) {
                     _this.postsService.findOne(_this.id).subscribe(function (e) {
                         _this.post = e;
+                        _this.colorStars();
                     });
                 }
             }
-            _this.colorStars();
         });
     };
     OnePostComponent.prototype.colorStars = function () {
@@ -475,6 +477,123 @@ var PageNotFoundComponent = /** @class */ (function () {
     return PageNotFoundComponent;
 }());
 exports.PageNotFoundComponent = PageNotFoundComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/update-post/update-post.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/update-post/update-post.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+
+/***/ }),
+
+/***/ "./src/app/update-post/update-post.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var UpdatePostComponent = /** @class */ (function () {
+    function UpdatePostComponent(postsService, route, router) {
+        this.postsService = postsService;
+        this.route = route;
+        this.router = router;
+        this.post = {
+            datum: "",
+            user: {
+                firstName: "",
+                email: "",
+                lastName: "",
+                password: "",
+                posts: [],
+                securityAuthority: {
+                    name: ""
+                },
+                username: ""
+            },
+            time: "",
+            text: "",
+            viewNumber: 0,
+            comment: [],
+            attachments: [],
+            rating: 0
+        };
+        this.value1 = "fa fa-star";
+        this.value2 = "fa fa-star";
+        this.value3 = "fa fa-star";
+        this.value4 = "fa fa-star";
+        this.value5 = "fa fa-star";
+    }
+    UpdatePostComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.isDataAvailable = false;
+            if (params['id'] != null) {
+                _this.id = +params['id']; // (+) konvertuje string 'id' u broj
+                //id postavljamo kao path parametar pomocu interpolacije stringa
+                if (_this.id != null) {
+                    _this.postsService.findOne(_this.id).subscribe(function (e) {
+                        _this.post = e;
+                        _this.colorStars();
+                    });
+                }
+            }
+        });
+    };
+    UpdatePostComponent.prototype.colorStars = function () {
+        if (this.post.rating >= 1) {
+            this.value1 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 2) {
+            this.value2 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 3) {
+            this.value3 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 4) {
+            this.value4 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 5) {
+            this.value5 = "fa fa-star checked";
+        }
+    };
+    UpdatePostComponent.prototype.saveAfterChangePost = function () {
+        this.postsService.updatePost(this.post.id, this.post);
+    };
+    UpdatePostComponent.prototype.goBackPost = function () {
+        this.router.navigate(['posts/']);
+    };
+    UpdatePostComponent = __decorate([
+        core_1.Component({
+            selector: 'app-update-post',
+            template: __webpack_require__("./src/app/update-post/update-post.component.html"),
+            styles: [__webpack_require__("./src/app/update-post/update-post.component.css")]
+        }),
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.ActivatedRoute, router_1.Router])
+    ], UpdatePostComponent);
+    return UpdatePostComponent;
+}());
+exports.UpdatePostComponent = UpdatePostComponent;
 
 
 /***/ }),
