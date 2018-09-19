@@ -22,6 +22,8 @@ public class User {
 	private Long id;
 
 	private String username;
+
+	@JsonIgnore
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -30,7 +32,7 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<Post> posts = new HashSet<Post>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<UserSecurityAuthority> userSecurityAuthorities = new HashSet<UserSecurityAuthority>();
