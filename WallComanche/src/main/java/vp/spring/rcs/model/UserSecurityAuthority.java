@@ -1,3 +1,4 @@
+
 package vp.spring.rcs.model;
 
 import javax.persistence.CascadeType;
@@ -74,3 +75,4 @@ public class UserSecurityAuthority {
 //	}
 
 }
+

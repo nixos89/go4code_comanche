@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope = Post.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)
 public class Post {
 
 	@Id
@@ -32,13 +32,14 @@ public class Post {
 	private User user;
 
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date datum;
 
-	@JsonFormat(shape=Shape.STRING, pattern="hh:mm:ss")
+	@Temporal(TemporalType.TIME)
+	@JsonFormat(shape = Shape.STRING, pattern = "hh:mm:ss")
 	private Date time;
 
 	private String text;
-
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)

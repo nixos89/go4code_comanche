@@ -1,3 +1,4 @@
+
 package vp.spring.rcs.model;
 
 import java.util.HashSet;
@@ -68,3 +69,4 @@ public class SecurityAuthority {
 	}
 
 }
+

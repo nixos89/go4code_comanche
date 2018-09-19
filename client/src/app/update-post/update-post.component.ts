@@ -87,17 +87,11 @@ export class UpdatePostComponent implements OnInit {
   }
 
   saveAfterChangePost(){
-    this.postsService.updatePost(this.post.id, this.post).subscribe(
-      s => {
-        this.post = s;
-        this.router.navigate(['posts']);
-      },
-      err=> console.log("err")
-    );    
+    this.postsService.updatePost(this.post.id, this.post);
   }
 
   goBackPost(){
-    this.router.navigate(['post/', this.post.id]);
+    this.router.navigate(['posts/']);
   }
 
 }
