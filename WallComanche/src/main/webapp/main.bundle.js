@@ -17,10 +17,95 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/add-post/add-post.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/add-post/add-post.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\"> Kreiraj post</h1>\n      </div>\n  </div>\n</div>\n\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [(ngModel)]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">\n        <table class=\"table table-striped\">\n            <thead>\n              <tr>\n                <th></th>\n                <th></th>\n              </tr>\n            </thead>\n            <tbody>\n                <tr>\n                  <td><button class=\"btn btn-success\" (click)=\"save()\" >Sacuvaj</button></td>\n                  <td><button class=\"btn btn-danger\" (click)=\"goBackPost()\" >Odustani</button></td>\n                </tr>\n              </tbody>\n          </table>\n          <div>\n      </div>\n    </div>\n    </div>\n  \n"
+
+/***/ }),
+
+/***/ "./src/app/add-post/add-post.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var AddPostComponent = /** @class */ (function () {
+    function AddPostComponent(postsService, router) {
+        this.postsService = postsService;
+        this.router = router;
+        this.post = {
+            datum: "",
+            user: {
+                id: 1,
+                firstName: "stefan",
+                email: "stefanbokic@gmail.com",
+                lastName: "ssss",
+                password: "wdasvqwfesd",
+                posts: [],
+                securityAuthority: {
+                    name: ""
+                },
+                username: ""
+            },
+            time: "",
+            text: "",
+            viewNumber: 0,
+            comment: [],
+            attachments: [],
+            rating: 0
+        };
+    }
+    AddPostComponent.prototype.ngOnInit = function () {
+    };
+    AddPostComponent.prototype.save = function () {
+        var _this = this;
+        this.postsService.addPost(this.post).subscribe(function (s) {
+            _this.post = s;
+            _this.router.navigate(['posts']);
+        }, function (err) { return console.log("err"); });
+    };
+    AddPostComponent.prototype.goBackPost = function () {
+        this.router.navigate(['posts']);
+    };
+    AddPostComponent = __decorate([
+        core_1.Component({
+            selector: 'app-add-post',
+            template: __webpack_require__("./src/app/add-post/add-post.component.html"),
+            styles: [__webpack_require__("./src/app/add-post/add-post.component.css")]
+        }),
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.Router])
+    ], AddPostComponent);
+    return AddPostComponent;
+}());
+exports.AddPostComponent = AddPostComponent;
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-inverse\">\n\t<div class=\"container\">\n\t  <div class=\"navbar-header\">\n\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n\t\t  <span class=\"sr-only\">Home</span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t</button>\n\t\t<a class=\"navbar-brand\" href=\"subjects\">Project name</a>\n\t  </div>\n\t  <div class=\"navbar-collapse collapse\">\n\t\t<ul class=\"nav navbar-nav\">\n\t\t  <li class=\"active\"><a href=\"subjects\">Predmeti</a></li>\n\t\t  <li><a href=\"subjects/add\">Dodaj predmet</a></li>\n\t\t  <li><a href=\"exams\">Ispiti</a></li>\n\t\t  <li><a href=\"exams/add\">Dodaj ispit</a></li>\n\t\t  <li><a href=\"students\">Studenti</a></li>\n\t\t  <li><a href=\"students/add\">Dodaj studenta</a></li>\n\t\t</ul>\n\t  </div>\n\t</div>\n  </nav>\n\n\t<router-outlet></router-outlet>"
+module.exports = "\n<nav class=\"navbar navbar-inverse\">\n\t<div class=\"container\">\n\t  <div class=\"navbar-header\">\n\t\t<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n\t\t  <span class=\"sr-only\">Home</span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t  <span class=\"icon-bar\"></span>\n\t\t</button>\n\t\t<a class=\"navbar-brand\" href=\"\">Project name</a>\n\t  </div>\n\t  <div class=\"navbar-collapse collapse\">\n\t\t<ul class=\"nav navbar-nav\">\n\t\t  <li ><a href=\"post/add/post\">Dodaj post</a></li>\n\t\t</ul>\n\t  </div>\n\t</div>\n  </nav>\n\n\t<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -129,6 +214,456 @@ var AppModule = /** @class */ (function () {
 }());
 exports.AppModule = AppModule;
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var http_2 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./src/app/app.component.ts");
+var page_not_found_component_1 = __webpack_require__("./src/app/page-not-found/page-not-found.component.ts");
+var h_interceptor_service_1 = __webpack_require__("./src/app/h-interceptor.service.ts");
+var http_3 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var list_of_posts_component_1 = __webpack_require__("./src/app/list-of-posts/list-of-posts.component.ts");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var one_post_component_1 = __webpack_require__("./src/app/one-post/one-post.component.ts");
+var ngx_pagination_1 = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+var update_post_component_1 = __webpack_require__("./src/app/update-post/update-post.component.ts");
+var add_post_component_1 = __webpack_require__("./src/app/add-post/add-post.component.ts");
+var comment_service_1 = __webpack_require__("./src/app/comment.service.ts");
+var appRoutes = [
+    /*{ path: 'record/:id', component: RecordDetailsComponent },
+    { path: 'main', component: MainComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },*/
+    { path: 'posts', component: list_of_posts_component_1.ListOfPostsComponent },
+    { path: 'post/:id', component: one_post_component_1.OnePostComponent },
+    { path: 'post/edit/:id', component: update_post_component_1.UpdatePostComponent },
+    { path: 'post/add/post', component: add_post_component_1.AddPostComponent },
+    { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
+];
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                page_not_found_component_1.PageNotFoundComponent,
+                list_of_posts_component_1.ListOfPostsComponent,
+                one_post_component_1.OnePostComponent,
+                update_post_component_1.UpdatePostComponent,
+                add_post_component_1.AddPostComponent,
+            ],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_2.HttpClientModule,
+                ngx_pagination_1.NgxPaginationModule,
+                router_1.RouterModule.forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                )
+            ],
+            providers: [
+                posts_service_1.PostsService,
+                comment_service_1.CommentService,
+                {
+                    provide: http_3.HTTP_INTERCEPTORS,
+                    useClass: h_interceptor_service_1.HInterceptorService,
+                    multi: true
+                },
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
 
 /***/ }),
 
@@ -181,7 +716,7 @@ module.exports = ""
 /***/ "./src/app/list-of-posts/list-of-posts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.date}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
+module.exports = "\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr>\n              <th>User</th>\n              <th>Date & Time</th>\n              <th>Text</th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr *ngFor = \"let post of posts | paginate: { itemsPerPage: 5, currentPage: p }\">\n                <td>{{post.user.firstName}}</td>\n                <td>{{post.datum}}</td>\n                <td>{{post.text}}</td>\n                <td><button class=\"btn btn-success\" (click)=\"viewDetails(post.id)\" >Vidi detalje</button></td>\n              </tr>\n              <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n            </tbody>\n        </table>\n        <div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -258,6 +793,7 @@ var ListOfPostsComponent = /** @class */ (function () {
     return ListOfPostsComponent;
 }());
 exports.ListOfPostsComponent = ListOfPostsComponent;
+
 
 
 /***/ }),
@@ -480,6 +1016,7 @@ var PageNotFoundComponent = /** @class */ (function () {
 exports.PageNotFoundComponent = PageNotFoundComponent;
 
 
+
 /***/ }),
 
 /***/ "./src/app/update-post/update-post.component.css":
@@ -492,7 +1029,7 @@ module.exports = ""
 /***/ "./src/app/update-post/update-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"saveAfterChangePost()\" >Sacuvaj</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"goBackPost(post.id)\" >Odustani</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [(ngModel)]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th>User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>{{post.user.firstName}}</td>\n              <td>{{post.datum}}</td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost(post.id)\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost(post.id)\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area...\"  [ngModel]=\"post.text\"></textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post attachment areaaaa...\"></textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > {{post.viewNumber}}\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n        <span [class]=\"value1\"></span>\n        <span [class]=\"value2\"></span>\n        <span [class]=\"value3\"></span>\n        <span [class]=\"value4\"></span>\n        <span [class]=\"value5\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -587,6 +1124,101 @@ var UpdatePostComponent = /** @class */ (function () {
     };
     UpdatePostComponent.prototype.goBackPost = function () {
         this.router.navigate(['post/', this.post.id]);
+    };
+    UpdatePostComponent = __decorate([
+        core_1.Component({
+            selector: 'app-update-post',
+            template: __webpack_require__("./src/app/update-post/update-post.component.html"),
+            styles: [__webpack_require__("./src/app/update-post/update-post.component.css")]
+        }),
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.ActivatedRoute, router_1.Router])
+    ], UpdatePostComponent);
+    return UpdatePostComponent;
+}());
+exports.UpdatePostComponent = UpdatePostComponent;
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var UpdatePostComponent = /** @class */ (function () {
+    function UpdatePostComponent(postsService, route, router) {
+        this.postsService = postsService;
+        this.route = route;
+        this.router = router;
+        this.post = {
+            datum: "",
+            user: {
+                firstName: "",
+                email: "",
+                lastName: "",
+                password: "",
+                posts: [],
+                securityAuthority: {
+                    name: ""
+                },
+                username: ""
+            },
+            time: "",
+            text: "",
+            viewNumber: 0,
+            comment: [],
+            attachments: [],
+            rating: 0
+        };
+        this.value1 = "fa fa-star";
+        this.value2 = "fa fa-star";
+        this.value3 = "fa fa-star";
+        this.value4 = "fa fa-star";
+        this.value5 = "fa fa-star";
+    }
+    UpdatePostComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.isDataAvailable = false;
+            if (params['id'] != null) {
+                _this.id = +params['id']; // (+) konvertuje string 'id' u broj
+                //id postavljamo kao path parametar pomocu interpolacije stringa
+                if (_this.id != null) {
+                    _this.postsService.findOne(_this.id).subscribe(function (e) {
+                        _this.post = e;
+                        _this.colorStars();
+                    });
+                }
+            }
+        });
+    };
+    UpdatePostComponent.prototype.colorStars = function () {
+        if (this.post.rating >= 1) {
+            this.value1 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 2) {
+            this.value2 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 3) {
+            this.value3 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 4) {
+            this.value4 = "fa fa-star checked";
+        }
+        if (this.post.rating >= 5) {
+            this.value5 = "fa fa-star checked";
+        }
+    };
+    UpdatePostComponent.prototype.saveAfterChangePost = function () {
+        this.postsService.updatePost(this.post.id, this.post);
+    };
+    UpdatePostComponent.prototype.goBackPost = function () {
+        this.router.navigate(['posts/']);
     };
     UpdatePostComponent = __decorate([
         core_1.Component({

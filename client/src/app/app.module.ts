@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'posts', component: ListOfPostsComponent },
   { path: 'post/:id', component: OnePostComponent },
   { path: 'post/edit/:id', component: UpdatePostComponent },
+  { path: 'post/add/post', component: AddPostComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     ListOfPostsComponent,
     OnePostComponent,
     UpdatePostComponent,
+    AddPostComponent,
 
   ],
   imports: [
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
   ],
   providers: [ //registrujem servise obaveznoo!!!!!!
     PostsService,
+    CommentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HInterceptorService,
