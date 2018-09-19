@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Attachment } from "./attachment";
+import { Comment } from "./comment";
 
 export class Post{
     id?: number;
@@ -8,7 +9,7 @@ export class Post{
     time: String;
     text: String;
     viewNumber: Number;
-    comment?: Comment[];
+    comments?: Comment[];
     attachments?: Attachment[];
     rating: Number;
 }

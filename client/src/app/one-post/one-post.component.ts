@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../list-of-posts/posts.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Post } from '../model/post';
+import { CommentService } from '../comment.service';
+import { Comment } from '../model/comment';
 
 @Component({
   selector: 'app-one-post',
@@ -26,7 +28,7 @@ export class OnePostComponent implements OnInit {
     time: "",
     text: "",
     viewNumber: 0,
-    comment: [],
+    comments: [],
     attachments: [],
     rating: 0
 
@@ -40,12 +42,16 @@ export class OnePostComponent implements OnInit {
 
   id: number;
 
+  myTextarea: String = "";
+  listOfComments: Comment[] = [];
+  
+
   private sub: any;
   isDataAvailable: boolean;
 
-  constructor(private postsService : PostsService, private route: ActivatedRoute, private router: Router) 
+  constructor(private postsService : PostsService, private route: ActivatedRoute, private router: Router, private commentService : CommentService) 
   { 
-      
+     // this.listOfComments.push("aaaaaa");
   }
 
   ngOnInit() {
@@ -61,6 +67,13 @@ export class OnePostComponent implements OnInit {
             e => {
               this.post = e;
               this.colorStars();
+              this.listOfComments = this.post.comments;
+              //this.commentService.findOneByPostId(this.id).subscribe(
+                //this.listOfComments = this.post.comments;
+               /* s => {
+                  this.post.comments = s
+                }*/
+             // )
             }
           )
         }
@@ -87,7 +100,7 @@ export class OnePostComponent implements OnInit {
   }
 
   updatePost(id: number){
-    this.postsService.updatePost(id, this.post);
+    this.router.navigate(['post/edit', id]);
   }
 
   deletePost(id: number){
@@ -99,4 +112,45 @@ export class OnePostComponent implements OnInit {
     );    
    }
 
+
+  buttonClick(myTextarea: String){
+      if (myTextarea != '') {
+          //this.listOfComments.push(myTextarea);
+          let newComment: Comment= {
+            commentText: myTextarea,
+            user: {
+              id: 1,
+              firstName: "aaaa",
+              email: "email",
+              lastName: "prezime",
+              password: "",
+              posts: [],
+              securityAuthority: {
+                name: "sss"
+              },
+              username: "usserrr"
+            }
+          }
+
+          this.commentService.addComment(newComment, this.post.id ).subscribe(
+            s => {
+               /* this.postsService.findOne(this.post.id).subscribe(
+                  z => {
+                    this.post = z;
+                  }
+          )*/
+            // this.listOfComments.push(s);
+            },
+            err=> console.log("err")
+          );    
+          myTextarea = "";
+      }
+  }
+
+  deleteComment($event){
+      this.listOfComments.splice($event, 1);
+  }
+
+
 }
+

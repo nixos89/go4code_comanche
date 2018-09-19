@@ -29,7 +29,7 @@ export class ListOfPostsComponent implements OnInit {
     time: "",
     text: "komentarr",
     viewNumber: 5,
-    comment: [],
+    comments: [],
     attachments: [],
     rating: 4
 

@@ -30,8 +30,8 @@
             <tr>
               <td>{{post.user.firstName}}</td>
               <td>{{post.datum}}</td>
-              <td><button class="btn btn-success" (click)="updatePost(post.id)" >Izmeni</button></td>
-              <td><button class="btn btn-danger" (click)="deletePost(post.id)" >Obrisi</button></td>
+              <td><button class="btn btn-success" (click)="saveAfterChangePost()" >Update</button></td>
+              <td><button class="btn btn-danger" (click)="goBackPost(post.id)" >Delete</button></td>
             </tr>
           </tbody>
       </table>
@@ -42,7 +42,7 @@
 
 <div class="row">
     <div class="col-md-8 col-sm-offset-2">
-      <textarea rows="8" cols="120" placeholder="Post text area..."  [ngModel]="post.text"></textarea>
+      <textarea rows="8" cols="120" placeholder="Post text area..."  [(ngModel)]="post.text"></textarea>
     </div>
   </div>
 

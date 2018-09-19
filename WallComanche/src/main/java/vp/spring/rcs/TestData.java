@@ -13,10 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import vp.spring.rcs.model.Comment;
 import vp.spring.rcs.model.Post;
 import vp.spring.rcs.model.SecurityAuthority;
 import vp.spring.rcs.model.User;
 import vp.spring.rcs.model.UserSecurityAuthority;
+import vp.spring.rcs.service.CommentService;
 import vp.spring.rcs.service.PostService;
 import vp.spring.rcs.service.SecurityAuthorityService;
 import vp.spring.rcs.service.UserService;
@@ -27,7 +29,8 @@ public class TestData {
 	@Autowired
 	UserService userService;
 
-	
+	@Autowired
+	CommentService commentService;
 
 	@Autowired
 	private SecurityAuthorityService secAuthService;
@@ -105,7 +108,18 @@ public class TestData {
 
 		Post post2 = new Post(user2, new Date(), dateTime2, "Ovo je neki novi tekst", 2, 3.5);
 		postService.save(post2);
-
+		
+		Comment comment1 = new Comment("Yo hot mama!", user1, post1);
+		commentService.save(comment1);
+		
+		Comment comment2 = new Comment("Al je neki!", user2, post1);
+		commentService.save(comment2);
+		
+		Comment comment3 = new Comment("Sta je ovo!", user1, post2);
+		commentService.save(comment3);
+		
+		Comment comment4 = new Comment("Uf sto je dobar!", user2, post1);
+		commentService.save(comment4);
 		
 	}
 

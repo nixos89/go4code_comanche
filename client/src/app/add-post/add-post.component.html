@@ -1,0 +1,51 @@
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+    color: orange;
+}
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="alert alert-info" style="align-content: center">
+          <h1 style="padding-left:46%"> Create post</h1>
+      </div>
+  </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-8 col-sm-offset-2">
+      <textarea rows="8" cols="120" placeholder="Post text area..."  [(ngModel)]="post.text"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-sm-offset-2">     
+      <textarea rows="8" cols="120" placeholder="Post attachment areaaaa..."></textarea>               
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-8 col-sm-offset-2">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><button class="btn btn-success" (click)="save()" >Save</button></td>
+                  <td><button class="btn btn-danger" (click)="goBackPost()" >Cancel</button></td>
+                </tr>
+              </tbody>
+          </table>
+          <div>
+      </div>
+    </div>
+    </div>
+  

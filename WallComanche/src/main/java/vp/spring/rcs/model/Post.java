@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -13,15 +14,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)
 public class Post {
 
 	@Id
@@ -32,13 +34,14 @@ public class Post {
 	private User user;
 
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date datum;
 
-	@JsonFormat(shape=Shape.STRING, pattern="hh:mm:ss")
+	@Temporal(TemporalType.TIME)
+	@JsonFormat(shape = Shape.STRING, pattern = "hh:mm:ss")
 	private Date time;
 
 	private String text;
-
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH)
@@ -46,8 +49,9 @@ public class Post {
 
 	private int viewNumber;
 
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private Set<Comment> comments = new HashSet<Comment>();
 
 	private double rating;
@@ -137,21 +141,5 @@ public class Post {
 		this.time = time;
 	}
 
-	@Override
-	public int hashCode() {
-		return id.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Post other = (Post) obj;
-		return other.id == id;
-	}
 
 }

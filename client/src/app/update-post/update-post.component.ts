@@ -26,7 +26,7 @@ export class UpdatePostComponent implements OnInit {
     time: "",
     text: "",
     viewNumber: 0,
-    comment: [],
+    comments: [],
     attachments: [],
     rating: 0
 
@@ -87,11 +87,17 @@ export class UpdatePostComponent implements OnInit {
   }
 
   saveAfterChangePost(){
-    this.postsService.updatePost(this.post.id, this.post);
+    this.postsService.updatePost(this.post.id, this.post).subscribe(
+      s => {
+        this.post = s;
+        this.router.navigate(['posts']);
+      },
+      err=> console.log("err")
+    );    
   }
 
   goBackPost(){
-    this.router.navigate(['posts/']);
+    this.router.navigate(['post/', this.post.id]);
   }
 
 }

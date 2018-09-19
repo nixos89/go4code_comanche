@@ -1,6 +1,8 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
 <style>
 .checked {
     color: orange;
@@ -30,8 +32,8 @@
             <tr>
               <td>{{post.user.firstName}}</td>
               <td>{{post.datum}}</td>
-              <td><button class="btn btn-success" (click)="updatePost(post.id)" >Izmeni</button></td>
-              <td><button class="btn btn-danger" (click)="deletePost(post.id)" >Obrisi</button></td>
+              <td><button class="btn btn-success" (click)="updatePost(post.id)" >Update</button></td>
+              <td><button class="btn btn-danger" (click)="deletePost(post.id)" >Delete</button></td>
             </tr>
           </tbody>
       </table>
@@ -51,6 +53,35 @@
       <textarea rows="8" cols="120" placeholder="Post attachment areaaaa..."></textarea>               
     </div>
   </div>
+
+  <div class="row">
+      <div class="col-md-8 col-sm-offset-2">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody >
+                <input type="text" #tekstic/>
+                <button  class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value) ">Comment</button>
+                <tr  *ngFor = "let tempComment of listOfComments; let i = index">
+                  <td><input type="text" #tekstic/></td>
+                  <button *ngIf="i==listOfComments.length-1" class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value)">Comment</button>
+                  <td ><button class="btn btn-danger" (click)="deleteComment($event)" >-</button></td>
+                </tr>
+              </tbody>
+              <!-- <tbody *ngIf="listOfComments.length == 0">
+                  <input type="text" #tekstic/>
+                  <button  class="btn btn-success btn-md pull-right" (click)="buttonClick(tekstic.value) ">Comment</button>
+              </tbody> -->
+          </table>
+          <div>
+      </div>
+    </div>
+    </div>
 
   <div class="row">
       <div class="col-md-8 col-sm-offset-2">     

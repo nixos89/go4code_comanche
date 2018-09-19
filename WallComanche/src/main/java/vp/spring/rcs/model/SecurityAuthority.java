@@ -1,3 +1,4 @@
+
 package vp.spring.rcs.model;
 
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope = SecurityAuthority.class)
 public class SecurityAuthority {
 
 	@Id
@@ -23,7 +24,6 @@ public class SecurityAuthority {
 
 	private String name;
 
-	@JsonIgnore
 	@OneToMany(mappedBy="securityAuthority", cascade = CascadeType.REFRESH)
 	private Set<UserSecurityAuthority> users = new HashSet<UserSecurityAuthority>();
 
@@ -68,3 +68,4 @@ public class SecurityAuthority {
 	}
 
 }
+

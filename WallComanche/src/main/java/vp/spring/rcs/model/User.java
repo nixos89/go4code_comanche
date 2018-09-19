@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
 public class User {
 
 	@Id
@@ -21,14 +22,15 @@ public class User {
 	private Long id;
 
 	private String username;
+	
+	@JsonIgnore
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String email;
-	
+
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<Post> posts = new HashSet<Post>();
-	
 
 	@OneToMany(mappedBy = "user", cascade = { CascadeType.REMOVE, CascadeType.REFRESH })
 	private Set<UserSecurityAuthority> userSecurityAuthorities = new HashSet<UserSecurityAuthority>();
@@ -99,8 +101,6 @@ public class User {
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
 	}
-	
-	
 
 	public Set<UserSecurityAuthority> getUserSecurityAuthorities() {
 		return userSecurityAuthorities;
