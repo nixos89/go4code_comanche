@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostsService } from '../list-of-posts/posts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-one-post',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnePostComponent implements OnInit {
 
-  constructor() { }
+  constructor(private postsService : PostsService, private router: Router) 
+  { 
+    
+  }
 
   ngOnInit() {
   }

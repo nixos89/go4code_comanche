@@ -196,10 +196,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var ListOfPostsComponent = /** @class */ (function () {
-    function ListOfPostsComponent() {
+    function ListOfPostsComponent(postsService, router) {
+        this.postsService = postsService;
+        this.router = router;
+        this.posts = [];
+        this.getAll();
     }
     ListOfPostsComponent.prototype.ngOnInit = function () {
+    };
+    ListOfPostsComponent.prototype.getAll = function () {
+        var _this = this;
+        this.postsService.findAll().subscribe(function (s) { return _this.posts = s; });
+    };
+    ListOfPostsComponent.prototype.deletePost = function (id) {
+        var _this = this;
+        this.postsService.deletePost(id).subscribe(function (s) { return _this.getAll(); }, function (err) { return console.log("err"); });
+    };
+    ListOfPostsComponent.prototype.updatePost = function (id) {
+        this.router.navigate(['posts/edit', id]);
     };
     ListOfPostsComponent = __decorate([
         core_1.Component({
@@ -207,7 +224,7 @@ var ListOfPostsComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/list-of-posts/list-of-posts.component.html"),
             styles: [__webpack_require__("./src/app/list-of-posts/list-of-posts.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.Router])
     ], ListOfPostsComponent);
     return ListOfPostsComponent;
 }());
@@ -276,7 +293,7 @@ module.exports = ""
 /***/ "./src/app/one-post/one-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th >User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>Stefan</td>\n              <td>12.12.2012 12:12</td>\n              <td><button class=\"btn btn-success\" (click)=\"savePost()\" >Sacuvaj</button></td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost()\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost()\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\">\n        Post text area. \n      </textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\">\n          Post attachment areaaaa. \n      </textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > 15\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n       <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star\"></span>\n        <span class=\"fa fa-star\"></span>               \n      </div>\n    </div>\n  \n"
+module.exports = "\n\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n<style>\n.checked {\n    color: orange;\n}\n</style>\n\n<div class=\"row\">\n  <div class=\"col-md-12\">\n      <div class=\"alert alert-info\" style=\"align-content: center\">\n          <h1 style=\"padding-left:46%\">Posts</h1>\n      </div>\n  </div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-md-8 col-sm-offset-2\">\n    <table class=\"table table-striped\">\n        <thead>\n          <tr>\n            <th >User</th>\n            <th>Date & Time</th>\n            <th></th>\n            <th></th>\n          </tr>\n        </thead>\n        <tbody>\n            <tr>\n              <td>Stefan</td>\n              <td>12.12.2012 12:12</td>\n              <td><button class=\"btn btn-success\" (click)=\"savePost()\" >Sacuvaj</button></td>\n              <td><button class=\"btn btn-success\" (click)=\"updatePost()\" >Izmeni</button></td>\n              <td><button class=\"btn btn-danger\" (click)=\"deletePost()\" >Obrisi</button></td>\n            </tr>\n          </tbody>\n      </table>\n      <div>\n  </div>\n</div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">\n      <textarea rows=\"8\" cols=\"120\" placeholder=\"Post text area\">\n        \n      </textarea>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-8 col-sm-offset-2\">     \n      <textarea rows=\"8\" cols=\"120\">\n          Post attachment areaaaa. \n      </textarea>               \n    </div>\n  </div>\n\n  <div class=\"row\">\n      <div class=\"col-md-8 col-sm-offset-2\">     \n       <label>Number of views: </label > 15\n        <span style=\"margin-left: 300px;\" >Post rating:</span>\n       <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star checked\"></span>\n        <span class=\"fa fa-star\"></span>\n        <span class=\"fa fa-star\"></span>               \n      </div>\n    </div>\n  \n"
 
 /***/ }),
 
@@ -296,8 +313,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var posts_service_1 = __webpack_require__("./src/app/list-of-posts/posts.service.ts");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var OnePostComponent = /** @class */ (function () {
-    function OnePostComponent() {
+    function OnePostComponent(postsService, router) {
+        this.postsService = postsService;
+        this.router = router;
     }
     OnePostComponent.prototype.ngOnInit = function () {
     };
@@ -307,7 +328,7 @@ var OnePostComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/one-post/one-post.component.html"),
             styles: [__webpack_require__("./src/app/one-post/one-post.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [posts_service_1.PostsService, router_1.Router])
     ], OnePostComponent);
     return OnePostComponent;
 }());

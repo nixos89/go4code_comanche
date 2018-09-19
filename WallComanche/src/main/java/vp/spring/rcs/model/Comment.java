@@ -12,7 +12,7 @@ public class Comment {
 
 	private String commentText;
 	
-	@ManyToOne
+	@ManyToOne()
 	private User user;
 
 	public Comment() {
